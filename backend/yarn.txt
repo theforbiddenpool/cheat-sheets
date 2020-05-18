@@ -1,0 +1,38 @@
+Yarn docs → https://classic.yarnpkg.com/lang/en/docs/getting-started/
+
+It was build by Facebook, Google, Exponent and Tilde with the purpose of solving a handful of problems that these teams faced with npm.
+	→ parallel installation of packages, which makes installation faster
+	→ cleaner output
+
+Starting a new project:
+yarn init
+
+Adding a dependency:
+yarn add <package>[@<version>]
+	--dev → install as a devDependency
+	--peer → install as a peerDependency
+	--optional → install as a optinalDependency
+	
+Upgrade a package:
+yarn upgrade <package>[@<version>]
+
+Removing a dependency:
+yarn remove <package>
+
+Installing all the dependencies of project:
+yarn install [package]
+
+	yarn install only installs the dependencies listed in yarn.lock or package.json, in that order.
+
+List the licenses of all installed packages:
+yarn licenses ls
+
+Generate a disclaimer container the contents of all license of all packages:
+yarn licenses generate-disclaimer
+
+Figure out why given package is installed in your project:
+yarn why <package>
+
+Generate a yarn.lock fle based on the dependencies set in package.json:
+yarn generate-lock-entry
+	yarn.locok is generated and update automatically when adding and upgrding dependencies via yarn add and yarn upgrade

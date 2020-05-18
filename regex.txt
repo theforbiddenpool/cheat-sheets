@@ -1,0 +1,56 @@
+  By default all regex is greedy match (finds the biggest possible match to fit the pattern). You can change it to lazy match using ?.
+
+.test() → test if the string matches with regex (returns true or false).
+.match() → returns the matched expression.
+.replace() → replace the text you match; (regex, string to replace). You can access capture ground in with $.
+
+
+FLAGS
+i → case insensitive
+g → extract or search a pattern more than once
+
+TERMINOLOGY
+greedy match → finds the longest possible part of a string that fits the regex pattern and returns it as a match. This is the default.
+	/t[a-z]*i/ → titanic
+lazy match → finds the smallest possible part of the string that satisfies the regex pattern
+	/t[a-z]*?i/ → ti
+
+
+WILDCARDS
+a|b → OR operator
+. → dot/period, match any one character
+[] → character classes, define a group of characters you wish to match
+	a-b → character range
+[^] → negated character sets, define a group of characters you don't want to match
+y+ → match one or more characters
+y* → matches zero or more characters
+y? → matches zero or one character
+? → lazy match, finds the smallest sub-string possible to fit the pattern
+^ → caret, used to search for patterns at the beginning of strings
+$ → dollar sign, search for patterns at the end of strings
+{ , } ou {} → quantity specifier, specify a certain range of patterns
+( ) → check for groups of characters
+( ) → capture groups, used to find repeat substrings.
+	\n → numeric reference for each capture group. Starts at 1
+
+
+JAVASCRIPT CLASSES
+\w → means [A-Za-z0-9_], alphabetic letters, numbers and underscore
+\W → means [^A-Za-z0-9_], the opposite of alphabetic letters, numbers and underscore
+\d → means [0-9], digits
+\D → means [^0-9], non-digits
+
+\s → matches white space (inc. carriage return, tab, form feed, new line characters).
+	\r → carriage return
+	\t → tab
+	\f → form feed
+	\n → new line
+	\v → vertical tab
+\S → non-white space
+
+
+LOOKAHEAD
+  They tell JavaScript to look-ahead in your string to check for patterns further along. This can be useful when you want to search for multiple partterns over the same string.
+
+(?=...) → positive lookahead, look to make sure the element in the search is there, but won't actually match it
+(?!...) → negative lookahead, look to make sure the element in the search is not there. The rest of the pattern is return if the negative lookahead is not present

@@ -1,0 +1,184 @@
+D3.js → Data Driven Documents. It's a JavaScript library to create dynamic and interactive data visualizations in the browser. It takes input data and maps it into a visual representation of that data. You use HTML or SVG elements with D3's built-in methods to transform the data into a visualization.
+
+ADD & SELECT DOCUMENT ELEMENTS
+d3.select(arg)
+	function → selects one element from the document
+	arg → the element to be selected
+
+.append(arg)
+	function → add an element to the document
+	arg → element you want to add to the document
+
+.text(arg)
+	function → sets the text of the selected node, or gets the current text
+	arg → the text you want to be set to
+
+You can chain D3 functions:
+d3.select('ul')
+	.append('li')
+	.text('Very important item")
+
+d3.selectAll(arg)
+	function → select a group of elements
+	arg → the element you want to select
+	return → array of HTML nodes for all the items in the document that match the input string
+
+
+WORK WITH DATA
+When you have a set of data, you can apply D3 methods to display it on the page.
+
+.data(arg)
+	function → attaches the data to the selected elements
+	arg → the data you want to attach to the elements
+
+.enter()
+	function → it looks at the selected elements from the page, and compares them to the number of data items in the set. If there are fewer elements than data items, it creates the missing elements
+
+.text(callback)
+	The text function can accept a callback so it makes use of the data
+
+d3.select('ul').selectAll('li')
+	.data(dataset)
+	.enter()
+	.append('li')
+	.text((d) => d)
+
+
+INLINE STYLING
+.style(key, value)
+	function → add inline CSS styles on dynamic elements
+	args → comma-separated key-value pair. Also accepts an callback as the second parameter.
+	notes → you can style your data conditionally, using the callback
+
+selection.style('color','blue')
+selection.style('color', (d) => {
+	// Logic that returns the color based on a condition
+})
+
+
+ADDING ATTRIBUTES
+.attr(key, value)
+	function → add attributes on dynamic elements. Useful to add classes to manage styling
+	args → comma-separated key-value pair. Also can take a callback function as the second parameter
+
+
+CREATING A BAR CHART
+1. Create a div for each data point in the array
+2. Give each div a dynamic height, using a callback function in the style() method that sets height equal to the data value
+
+You can multiply the data number to better show the difference between each bar. It's like zooming in.
+
+
+SVG in D3
+SVG → Scalable Vector Graphics. If you zoom in or out on an object, it will not appear pixelated.
+
+D3 uses SVGs to create the shapes for the visualization.
+	...
+	.append('svg')
+	.attr('height', 100)
+	.attr('width', 500)
+
+SVGs support multiple shapes, such as rectangles (<rect>) and circles. You can specify where it goes with x and y coordinates.
+	rect attributes → x, y, height, width, fill
+		x → the x point of origin. Positive x will push the rect to the right.
+		y → the y point of origin. Positive y will push the rect down.
+		height → the height of the rect.
+		width → the width of the rect.
+		fill → the color of rect
+	circle attributes → cx, cy, r
+		cx → position x
+		cy → position y
+		r → the radius of the circle
+
+	LABELS
+	You can add a label with the <text> element. Simply append the value of the data on a text element to the svg. You have to set the x and y coordinates as you do with the bars.
+
+	TOOLTIP
+	It shows more information about an item on a page when the user overs that item. Append a <title> element to the rect and add the inner text with the .text() method.
+
+CREATING A BAR CHART WITH SVGs
+1. Create an encompass svg element.
+2. Create a rect for each data point in the array.
+3. Give each rect a dynamic x and height, using the callback function in the attr() method.
+4. Invert the y position so the bars are upright (y = heightOfSVG - heightOfBar).
+
+svg.selectAll('rect')
+	.data(dataset)
+	.enter()
+	.append('rect')
+	.attr('x', (d, i) => i * 30)
+	.attr('y', h - d * 3)
+	.attr('width', 25)
+	.attr('height', d => d * 3)
+
+CREATING A SCATTERPLOT WITH SVGs CIRCLES
+Scatterplot → uses circles to map data points, which have two values each tied to the x and y axes.
+
+1. Create an encomapass svg element.
+2. Create a circle for each data point in the array.
+3. Give each circle a dynamic cx and cy, using the callback function in the attr() method. Also set a radius (r) attribute.
+4. Invert the cy position so the data is correctly placed from bottom to top.
+5. You can add labels using the text element.
+
+svg.selectAll('circle')
+	.data(dataset)
+	.enter()
+	.append('circle')
+	.attr('cx', d => d[0])
+	.attr('cy', d => h - d[1])
+	.attr('r', 5)
+
+
+SCALE
+Avoids the data going outsite of the svg because the data is larger than its width or height. Scales are functions that tell the program how to map a set of raw data points onto the pixels on the SVG canvas.
+D3 has several scale types:
+	- scaleLinear() → usually used for quantitive data
+
+const scale = d3.scaleLinear()
+
+.domain(arg)
+	Input information for the scale. It's the range of the set of values in the dataset.
+	arg → usually the range as an array of min value and max value of the dataset
+
+.range(arg)
+	You use it to map the dataset points along the axis on the SVG canvas.
+	arg → the range as an array of min value and max value on where those points can be placed
+
+FINDING THE MINIMUM AND MAXIMUM VALUES IN A DATASET
+d3.min(data) // d3.max(data)
+If there is a nested array on the dataset, you can pass a callback function and say to d3 which value you want to be compared.
+d3.min(data, d => d[0])
+
+d3.extent → compute the minimum and maximum value in an array
+
+SETTING A SCALE
+1. Create two variables to hold the x and y scales.
+2. Call the type of scale you want it to be (e.g. d3.scaleLinear()).
+3. Set the domain to be equal to where it starts (0) and where it ends (the max value of the dataset).
+4. Set the range to be equal to where it is supposed to start (0 + padding) and where it's supposed to end (w - padding).
+5. Remeber to keep the plot right-side-up. When you set the range for the y coordinates, the heigher value is the first argument.
+6. Pass the scale to set the x/cx and y/cy values of the svg rect/circle elements to position the data on the SVG.
+
+const xScale = d3.scaleLinear()
+	.domain([0, d3.max(dataset, d => d[0])])
+	.range([padding, w - padding])
+
+...
+	.attr('x', d => xScale(d[0])
+
+
+AXES
+.axisLeft() // .axisBottom() → renders the y and x axes, respectively. As an argument, pass the scale.
+To render on the SVG canvas, you can use a general SVG component (g element).
+
+CREATING AN AXIS
+1. Create an axis variable.
+2. Append an g element to the SVG.
+3. Add an transform attribute to place the axis in the correct place (0, h - padding).
+4. Call the axis variable.
+
+const xAxis = d3.axisBottom()
+svg.append('g')
+	.attr('transform', `translate(0, ${h - padding})`)
+	.call(xAxis)
+
