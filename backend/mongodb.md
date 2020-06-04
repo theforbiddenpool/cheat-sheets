@@ -44,7 +44,7 @@ const Person = mongoose.model('Person', personSchema)
 _Create & save a new record of a model:_
 ```javascript
 const createAndMakePerson = function(done) {
-  const person = new Person(<args>)
+  const person = new Person({<args>})
   person.save((err, data) => {
     if(err) return done(err)
     done(null, data)
