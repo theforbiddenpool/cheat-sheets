@@ -112,3 +112,6 @@ _Mount the middleware to handle urlencoded data:_
 app.use(bodyParser.urlencoded({ extend: false }))
 ```
 - `extend` → configuration option that tells the parser to use the classic encoding, only allowing strings or arrays. The extended version allows more data flexibility, but it's outmatched by JSON.
+
+# Sources
+[freeCodeCamp](https://freecodecamp.org)

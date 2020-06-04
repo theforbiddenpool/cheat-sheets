@@ -39,3 +39,6 @@ const result = bcrypt.compareSync(<plainTextPassword>, <hashesdPassword>)
 __hash__ → returned fixed value of an algorithm that was fed some kind of data. They are always unique.
 __salt__ → random data added to the original data before the hashing process. Makes the hash harder to crack.
 __cost__ → how much power it takes to compute the hash on a logarithmic scale of 2^cost. For example, at a cost of 10 we are able to hash 10 passwords a second on an average computer, however at a cost of 15 it takes 3 seconds per hash. A cost of 12 is considered very secure at this time.
+
+# Sources
+[freeCodeCamp](https://freecodecamp.org)

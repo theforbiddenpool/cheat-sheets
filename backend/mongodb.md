@@ -148,3 +148,7 @@ NoSQL database → this type of database stores all associated data within one r
 - __Scalability__ → by default, they are split across many systems, making it easir to improve performance at a lower cost.
 - __Flexibility__ → new datasets and properties can be added to a document without the need to make a new table.
 - __Replication__ → copies of the database run in parallel. So if one goes down, one of the copies becomes the new primary data source.
+
+# Sources
+[freeCodeCamp](https://freecodecamp.org)\
+[mongoose Docs](https://mongoosejs.com/docs)

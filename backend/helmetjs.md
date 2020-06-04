@@ -89,3 +89,6 @@ __clickjacking__ → technique of tricking a user into interacting with a page d
 __Cross-site scripting (XSS)__ → malicious scripts are injected into vulnerable pages, with the purpose of stealing sensiteve data like session cookies, or passwords.\
 __HTTP Strict Transport Security (HSTS)__ → web security policy which helps to protect website against protocol downgrade attacks and cookie hijacking.
 __DNS prefetching__ → to improve performance, most browsers prefetch DNS records for the links in a page so the destination ip is already known when the user clicks on a link.
+
+# Sources
+[freeCodeCamp](https://freecodecamp.org)

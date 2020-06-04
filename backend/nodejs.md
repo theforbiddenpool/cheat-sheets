@@ -130,3 +130,7 @@ __routing__ → directs users to the correct page based on their interaction wit
 __middleware__ → functions that intercept route handlers, adding some kind of information\
 __REST (REpresentational State Transfer) API__ → allows data exchage in a simple way, without the need for clients to know any detail about the server. The client only needs to know where the resouce is (the URL), and the action it wants to perform on it (the verb). Currently, the preferred data format for moving information around the web is JSON.\
 __Multipart/form-data encoding__ → used to upload binary files
+
+# Sources
+[freeCodeCamp](https://freecodecamp.org)\
+[Youtube - Getting Started with Node.js, by Samer Buna](https://www.youtube.com/watch?v=gG3pytAY2MY)

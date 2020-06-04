@@ -79,3 +79,7 @@ There are two required fields - `name` and `version` - but it's good practice to
 # Keywords
 __package manager__ → helps developers to make sure they have all the correct dependencies of a project. The package manager will install everything for us.\
 __Semantic Versioning (SemVer)__ → industry standard for software versioning. Everything published on npm should use SemVer. The format is `MAJOR.MINOR.PATCH`. `MAJOR` changes when making incompatible API changes, `MINOR` when adding functionality in a backwards-compatible mannner, and `PATCH` when making backwards-compatible bug fixes.
+
+# Sources
+[freeCodeCamp](https://freecodecamp.org)\
+[flaviocopes - The package.json guide](https://flaviocopes.com/package-json/)
