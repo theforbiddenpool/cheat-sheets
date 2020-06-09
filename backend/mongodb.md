@@ -1,7 +1,9 @@
-# MongoDB
 __MongoDB__ → database that stores data records (documents) for use by an application. It's a non-relational, NoSQL database. Mongo uses JSON as its document structure.
 __Mongoose.js__ → npm module. Allows you to write object for Mongo as you would in JavaScript.
 
+# MongoDB
+
+# Mongoose
 ## Connecting to database
 You should store the database URI in the `.env` file. Require the `mongoose` and connect to the database:
 ```javascript
