@@ -44,6 +44,16 @@ _e.g._
 app.use(express.static(__dirname + '/public'))
 ```
 
+## Handling missing pages (404)
+A common way to handle this is adding a middleware after all the other routes.
+```javascript
+app.use((req, res, next) => {
+  res.status(404)
+    .type('text')
+    .send('Not Found')
+})
+```
+
 # Root-level middleware
 Function used to execute some code that can have side-effects on the app. Usually adds information to the request or response objects. Can also be used to perform some validation on data. At each point of the middleware stack you can block the execution of the current chain and pass control to functions specifically designed to handle errors.
 
