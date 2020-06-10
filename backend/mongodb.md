@@ -2,6 +2,72 @@ __MongoDB__ → database that stores data records (documents) for use by an appl
 __Mongoose.js__ → npm module. Allows you to write object for Mongo as you would in JavaScript.
 
 # MongoDB
+## Connecting to database
+```javascript
+const mongo = require('mongodb').MongoClient
+
+mongo.connect(process.env.DATABASE, (err, client) => {
+  /** If you want to keep a persistent connection, this is where
+      most of the code will be.
+  **/
+})
+```
+
+## Inserting a new record
+```javascript
+function(username, password, done) {
+  db.collection('users').insertOne({
+    username: req.body.username,
+    password: req.body.password // for security reasons, the password should be hashed. See bcrypt.
+  }, (err, doc) => {
+    if(err) res.redirect('/')
+    else done(null, doc)
+  })
+}
+```
+
+## Searching the database
+```javascript
+const db = client.db('<database-name>')
+
+function(username, password, done) {
+  db.collection('users').findOne({ username: username }, function (err, user) {
+    if (err) { return done(err); }
+
+    // Do something with the data returned
+    return done(null, user);
+  });
+}
+```
+
+## Modifing a record
+```javascript
+function(profile, done) {
+  db.collection('socialusers').findAndModify(
+  {id: profile.id},
+  {},
+  {$setOnInsert: {
+    id: profile.id,
+    name: profile.displayName || 'John Doe',
+    photo: profile.photos[0].value || '',
+    email: profile.emails || 'No public email',
+    created_on: new Date(),
+    provider: profile.provider || ''
+  },$set: {
+    last_login: new Date()
+  },$inc:{
+    login_count: 1
+  }},
+  {upsert:true, new: true},
+  (err, doc) => {
+    return done(null, doc.value);
+  }
+);
+}
+```
+- `$setOnInsert` → when record doesn't exist, insert those properties.
+- `$set` → on each query, update properties to what's defined.
+- `$inc` → on each query, increment by x the value of the specified properties.
 
 # Mongoose
 ## Connecting to database
