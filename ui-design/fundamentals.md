@@ -4,7 +4,7 @@ __Notes:__
 - Make sure the white space around an element is equal
 
 ## Contrast
-__WCAG 2.0 Contract Guidelines__
+__WCAG 2.0 Contrast Guidelines__
 _Minimum AA_
 - text and images → 4.5:1
 - large text → 3:1
