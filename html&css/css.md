@@ -43,12 +43,13 @@ Similar to `linear-gradient` with the major difference of repeating the specifie
 body {
   background: repeating-linear-gradient(90deg, yellow 0px, blue 40px, green 40px, red 80px)
 }
-/** Starts with the color yellow at 0 pixels, blends into the blue at 40px. It immediately changes to the green, because the color stop is at 40px too. The green blends into red at 80px from the beginning of the gradient. **/
+/** Starts with the color yellow at 0 pixels, blends into the blue at 40px. 
+  * It immediately changes to the green, because the color stop is at 40px too.
+  * The green blends into red at 80px from the beginning of the gradient.
+**/
 ```
 
 # Size
-
-
 Unit | Description
 --- | ---
 `px` | pixels
@@ -148,11 +149,6 @@ Property Name | Values | Description
 `border-collapse` | collapse, separate | collapse adjacent borders. Used to prevent the width of lines be twice that of the outside edges
 
 ## Good practices
-<style>
-ul {
-  margin-top: -10px;
-}
-</style>
 - Give cells padding;
 - Distinguish headings;
 - Shade alternate rows;
