@@ -20,6 +20,8 @@ We can also limit the items size, using the function `minmax()`. The first value
 }
 ```
 
+We can create a grid container within another using the display property on the item.
+
 ### Grip-Gap
 To set the gap between the columns or rows we can use `grid-column-gap`, `grid-row-gap`, or the shorthand property `grid-gap`. If there are two values in `grid-gap` the first one sets the gap between the rows, and the second one the columns.
 ```css
@@ -88,9 +90,10 @@ grid-template-rows: repeat(2, 1fr, 50px) 20px;
 
 We can also use `auto-fill` and `auto-fit` with `minmax()`:	
 - `auto-fill` → automatically insert as many rows or columns of our desired size as possible. *e.g.* `repeat(auto-fill, minmax(60px, 1fr));`
-- `auto-fit` → similar to `auto-fill`, but stops creating rows or columns when there are no more items, stretching the items to fit the size of the container.*e.g.* `repeat(auto-fit, minmax(60px, 1fr));`
+- `auto-fit` → similar to `auto-fill`, but stops creating rows or columns when there are no more items, stretching the items to fit the size of the container. *e.g.* `repeat(auto-fit, minmax(60px, 1fr));`
 
 We can use media-queries to rearrange the items on the grid as needed.
 
 # Sources
-[freeCodeCamp](https://www.freecodecamp.org/)
+[freeCodeCamp](https://www.freecodecamp.org/)\
+[Flywheel - CSS Grid Diagram](https://getflywheel.com/layout/css-grid-layouts-how-to/)
