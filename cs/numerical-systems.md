@@ -51,14 +51,56 @@ The most convenient method is repeated division by 2. We repeatedly divide the n
 h<sub>n</sub>16<sup>n</sup> + h<sub>n-1</sub>16<sub>n-1</sub> + ... + h<sub>1</sub>16<sup>1</sup> + h<sub>0</sub>16<sup>0</sup>
 
 *Example*: C0DE
-| | <th colspan=4>Hexadecimal Digit | | | |
---- | --- | --- | --- | ---
-Digit positions | 3 | 2 | 1 | 0
-Hex Digits Sorted | C | 0 | D | E
-Convert A-F | 12 | 0 | 13 | 14
-Multiply by 16n | 12 × 163 | 0 × 162 | 13 × 161 | 14 × 160
-Resulting Products | 49152 | 0 | 208 | 14
-Sum Up All Products | <td colspan=4>49374
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th colspan=4>Hexadecimal Digit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Digit positions</td>
+      <td>3</td>
+      <td>2</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Hex Digits Sorted</td>
+      <td>C</td>
+      <td>0</td>
+      <td>D</td>
+      <td>E</td>
+    </tr>
+    <tr>
+      <td>Convert A-F</td>
+      <td>12</td>
+      <td>0</td>
+      <td>13</td>
+      <td>14</td>
+    </tr>
+    <tr>
+      <td>Multiply by 16<sup>n</sup></td>
+      <td>12 × 16<sup>3</sup></td>
+      <td>0 × 16<sup>2</sup></td>
+      <td>13 × 16<sup>1</sup></td>
+      <td>14 × 16<sup>0</sup></td>
+    </tr>
+    <tr>
+      <td>Resulting Products</td>
+      <td>49152</td>
+      <td>0</td>
+      <td>208</td>
+      <td>14</td>
+    </tr>
+    <tr>
+      <td>Sum Up All Products</td>
+      <td colspan="4">49374</td>
+    </tr>
+  </tbody>
+</table>
+
 
 ## Binary to Hex
 Each digit of a hexadecimal number maps to four bits of a binary value. So a byte (eight bits) can always be represented by two hexadecimal digits, making it a great way to represent a byte of group of bytes. Use the reference table to help you do the conversion.
@@ -91,7 +133,7 @@ The carry is involved whenever we have a result larger than 1. It is possible to
 | | | | | | |
 --- | --- | --- | --- | --- | ---
 \# | 1 | 0 | 0 | 1 | 0
-+ | 1 | 0 | 1 | 1 | 0
+\+ | 1 | 0 | 1 | 1 | 0
 | | | | | | |
 1 | 0 | 1 | 0 | 0 | 0
 
