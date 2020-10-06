@@ -59,3 +59,7 @@ Class | Description | Equivalent match
 `\n` | new line
 `\v` | vertical tab
 `\S` | non-white space
+
+# Sources
+[freeCodeCamp](https://www.freecodecamp.org/)
+[RegExr](https://regexr.com/)
