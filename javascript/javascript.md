@@ -3,12 +3,56 @@
 __Falsy values__ → value that is considered false when encountered in a boolean context. In JavaScript, these are: `false`, `0`, `-0`, `""` [empty string], `NaN`, `undefined`, and `null`.
 
 # Functions
+> A function is a mapping between an input and an output.
+
+There are several rules a function must follow to be considered a function:
+- Multiple inputs can map to a single input.
+- Same input cannot map to multiple inputs.
+
+In JavaScript, a function always returns something. If we don't specify what that something is, JS will return `undefined` for us. If the function doesn't return anything, we might be getting our return some place else. In that case, it's an **impure function** and its causing a side-effect. We should avoid doing that whenever possible.
+
+## Recursive Functions
+A function that calls itself to do something or get a result is a **recursive function**. The most basic example of one is the implementation of factorial:
+```javascript
+function fac(n) {
+  if (n === 0) return 1 // this is our rule number 1 being satisfied.
+  return n * fac(n-1) // rule number 2 being satisfied
+}
+```
+
+In every recursion, there are always at least 2 logical cases:
+1. a base where the function does not call itself, so the recursion doesn't keep running indefinitely.
+2. the recursive call.
+
+> __Note:__ In JavaScript, recursion is usually fine for simple algorithms that don't need too many recursive calls. If that happens, the algorithm is either not going perform well or going to crash because of stack overflow.
+
+## Higher-Order Functions
+A **Higher-Order Function** is a function that maps:
+- from function to output;
+- from input to function;
+- from function to function.
+
+An example from input to function is:
+```javascript
+function add(a) {
+  return function (b) {
+    return a + b;
+  }
+}
+
+let addOne = add(1) //=> this returns a function
+let addTen = add(10) //=> this too returns a function
+
+addTen(1) //=> returns 11
+```
+
+## ES6
 Arrow function → `() => {}`\
 Implicit return with arrow functions → `() => 'value'`
 
 Default parameter → `function greeting(name = 'Anonymous') {}`
 
-## Rest operator
+### Rest operator
 The rest operator (`...`) can be used where multiple parameters are expected.
 ```javascript
 function func1(arg1, arg2, ...args) {
@@ -224,4 +268,5 @@ import Editor from './Editor.js';
 [freeCodeCamp](https://freecodecamp.org/)\
 [Scheduling: setTimout and setInterval - JavaScript.info](https://javascript.info/settimeout-setinterval)\
 [MDN web docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/)\
-[Watch Out When Using SetTimeout() in For Loop #JS – Medium](https://medium.com/@axionoso/watch-out-when-using-settimeout-in-for-loop-js-75a047e27a5f)
+[Watch Out When Using SetTimeout() in For Loop #JS – Medium](https://medium.com/@axionoso/watch-out-when-using-settimeout-in-for-loop-js-75a047e27a5f)\
+[Functions. A Fool's Guido to Writing Functional JS (Part 2)](https://dev.to/fa7ad/part-2-functions-a-fool-s-guide-to-writing-functional-js-4p5f)
