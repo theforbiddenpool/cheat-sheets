@@ -577,7 +577,7 @@ Resolves: #123
 You can also specify the type of commit:
 1. `feat`: the new feature you're adding to a particular application.
 2. `fix`: a bug fix.
-3. `style`: feature and updates related to code styling.
+3. `style`: feature and updates related to styling.
 4. `refactor`: refactoring a specific section of the codebase.
 5. `test`: everything related to testing.
 6. `docs`: everything related to documentation.
