@@ -100,6 +100,51 @@ Schedules the execution of `func` **as soon as possible**. The scheduler will in
 
 In the browser there is a limitation of how often nested timers can run: “after 5 nested timers, the interval is forced to be at least 4 milliseconds” ([HTML 5 standard](https://html.spec.whatwg.org/multipage/timers-and-user-prompts.html#timers)). It comes from ancient times and many scripts rely on it, so it exists for historical reasons. For server-side Javascript, that limitation does not exist.
 
+### `setTimeout` With For Loop
+> __Note:__ does not happen when using ES6 `let` keyword.
+```javascript
+var array = [1, 2, 3, 4, 5]
+
+for(var i = 0; i < array.length; i++) {
+  setTimeout(() => {
+    console.log(array[i])
+  }, 1000);
+}
+
+// i = 5
+// console.log:
+// undefined
+// undefined
+// undefined
+// undefined
+// undefined
+```
+The for loop exits before the setTimeout is triggered. Due to the closure created `i = 5`, therefore `array[5]` prints `undefined`. There are two possible solutions:
+1. Factor out the `setTimeout` function
+```javascript
+var array = [1, 2, 3, 4, 5]
+
+for(var i = 0; i < array.length; i++) {
+  delay(i)
+}
+
+function delay(i) {
+  setTimeout(() => {
+    console.log(array[i])
+  }, 1000);
+}
+```
+2. Declare the `i` variable in the for loop with the `let` keyword instead of `var`. `let` creates a separate scope for the code block.
+```javascript
+var array = [1, 2, 3, 4, 5]
+
+for(let i = 0; i < array.length; i++) {
+  setTimeout(() => {
+    console.log(array[i])
+  }, 1000);
+}
+```
+
 ## Promises
 We promise to do something, and when the task completes, we either fulfill it or fail to do so. It takes a functions as it's argument, with two parameters - resolve and reject. It has three states: **pending**, **fulfilled**, and **rejected**.
 
@@ -178,4 +223,5 @@ import Editor from './Editor.js';
 # Sources
 [freeCodeCamp](https://freecodecamp.org/)\
 [Scheduling: setTimout and setInterval - JavaScript.info](https://javascript.info/settimeout-setinterval)\
-[MDN web docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/)
+[MDN web docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/)\
+[Watch Out When Using SetTimeout() in For Loop #JS – Medium](https://medium.com/@axionoso/watch-out-when-using-settimeout-in-for-loop-js-75a047e27a5f)
