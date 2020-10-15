@@ -11,6 +11,18 @@ There are several rules a function must follow to be considered a function:
 
 In JavaScript, a function always returns something. If we don't specify what that something is, JS will return `undefined` for us. If the function doesn't return anything, we might be getting our return some place else. In that case, it's an **impure function** and its causing a side-effect. We should avoid doing that whenever possible.
 
+### Functions As First-Class Objects
+__First-class citizenship__ → an entity supports all the operational properties inherent to other entities. In other words, means "being able to do what everyone else can do".
+
+Why are functions first-class objects in JavaScript?
+- functions are objects. They inherit from the Object prototype.
+- can be assigned to key-value pairs.
+- can be assigned to variables.
+- can be passed as arguments.
+- can be assigned as the return value of other functions.
+
+This allows a lot of flexibility, and it's one of the bases of **functional programming**. Being able to pass a callback to event listeners is a very useful feature. It also allows the creation of closures and partial-application/currying.
+
 ## Recursive Functions
 A function that calls itself to do something or get a result is a **recursive function**. The most basic example of one is the implementation of factorial:
 ```javascript
@@ -40,17 +52,23 @@ function add(a) {
   }
 }
 
-let addOne = add(1) //=> this returns a function
-let addTen = add(10) //=> this too returns a function
+let addOne = add(1) // returns a function
+let addTen = add(10) // also returns a function
 
-addTen(1) //=> returns 11
+addTen(1) // returns 11
 ```
 
 ## ES6
-Arrow function → `() => {}`\
+Arrow function → `(x, y) => {}`\
 Implicit return with arrow functions → `() => 'value'`
 
 Default parameter → `function greeting(name = 'Anonymous') {}`
+
+### Arrow Function vs. Regular Function
+1. __`arguments` binding__ → arrow functions don't have `arguments` binding. However, it has access to the closest `arguments` object of non-arrow parent function.
+2. __`this` keyword__ → the value of `this` is always bound to the value of `this` in the closest non-arrow parent function.
+3. __`new` keyword__ → arrow functions are only callable and not constructible. They can never be invoked with the `new` keyword.
+4. __No duplicate named parameters__ → when not using `strict` mode in JavaScript, parameters can have the same name (*e.g.* `function add(x, x){}`). In arrow functions, this is never allowed.
 
 ### Rest operator
 The rest operator (`...`) can be used where multiple parameters are expected.
@@ -60,6 +78,50 @@ function func1(arg1, arg2, ...args) {
 }
 ```
 The `args` variable will be an array containing all the remaining passed arguments.
+
+## `apply`, `call`, and `bind` Methods
+This methods are deeply related to the `this` keyword. They are available to all functions due being inherited through the `Function.prototype` chain.
+
+- `Function.prototype.apply` → calls a function with a given `this` value, and arguments provided as an array-like object. `apply` will take all the values inside the array as individual arguments and then apply the function to them. A common use is finding the maximum value within an array.
+```javascript
+const numbers = [53, 65, 25, 37, 78]
+
+console.log(Math.max(numbers))
+// output: NaN
+
+console.log(Math.max.apply(null, numbers))
+// output: 78
+```
+- `Function.prototype.call` → calls a function with a given `this` value and arguments provided individually. It's similar to `apply`, the only difference being that, instead of an array, the arguments are provided individual to the `call` function. Often used with constructor chaining.
+```javascript
+function sleep() {
+  const reply = [this.animal, 'typically sleep between', this.sleepDuration].join(' ')
+  console.log(reply)
+}
+
+const obj = {
+  animal: 'Dogs', sleepDuration: '12 and 14 hours'
+}
+
+sleep.call(obj)
+```
+- `Function.prototype.bind` → creates a new function that, when called, has its `this` keyword set to the provided value, plus the provided arguments. The function returned is a special function object called **Bound function (BF)**. The BF wraps around the original function object.
+```javascript
+const x = 9
+const module = {
+  x: 81,
+  getX: function() { return this.x }
+
+  console.log(module.getX())
+  // output: 81
+  const retriveX = module.getX
+  console.log(retrieveX())
+  // output: 9
+  const boundGetX = retrieveX.bind(module)
+  console.log(boundGetX())
+  // output: 81
+}
+```
 
 # Destructuring Assignment
 It's a special syntax for neatly assigning values taken directly from an object to variables.
@@ -269,4 +331,7 @@ import Editor from './Editor.js';
 [Scheduling: setTimout and setInterval - JavaScript.info](https://javascript.info/settimeout-setinterval)\
 [MDN web docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/)\
 [Watch Out When Using SetTimeout() in For Loop #JS – Medium](https://medium.com/@axionoso/watch-out-when-using-settimeout-in-for-loop-js-75a047e27a5f)\
-[Functions. A Fool's Guido to Writing Functional JS (Part 2)](https://dev.to/fa7ad/part-2-functions-a-fool-s-guide-to-writing-functional-js-4p5f)
+[Functions. A Fool's Guide to Writing Functional JS (Part 2) – DEV](https://dev.to/fa7ad/part-2-functions-a-fool-s-guide-to-writing-functional-js-4p5f)\
+[The Difference Between Regular Functions and Arrow Functions – Medium](https://medium.com/better-programming/difference-between-regular-functions-and-arrow-functions-f65639aba256)\
+[Function as First-Class Objects in JavaScript: Why Does This Matter? – DevelopIntelligence](https://www.developintelligence.com/blog/2016/10/javascript-functions-as-first-class-objects/)\
+[How to use the apply(?), call(?), and bind(➰) methods in JavaScript – FreeCodeCamp Blog](https://www.freecodecamp.org/news/how-to-use-the-apply-call-and-bind-methods-in-javascript-80a8e6096a90/)
