@@ -199,6 +199,52 @@ const numbers3 = [...numbers, ...numbers2];
 ### Tips
 If you have tabular data, you can use an object to "lookup" values rather than a switch statement or an if/else chain.
 
+## Optional Chaining (`?.`)
+It allows reading the value of a property located within a chain of connected objects without having to expressly validade that each reference in the chain is valid.
+```javascript
+const person = {
+  name: 'John',
+  cat: {
+    name: 'Murphy'
+  }
+}
+
+const dogName = person.dog?.name
+console.log(dogName)
+console.log(person.nonExistentMethod?.())
+// expected output: undefined
+```
+
+The expression returns `undefined` if the given property doesn't exist. Optional chaining cannot be used on a non-existent root object nor when is on the left side of the assignment.
+
+A function's argument may have non-existent values. We can also use this operator to invoke a function if the function exist.
+```javascript
+function doSometing(onContent, onError) {
+  try {
+    // do something with the data
+  } catch(err) {
+    onError?.(err.message) // no exception if onError is undefined
+  }
+}
+```
+
+## Nullish Coalescing Operator (`??`)
+It's a logical operator that returns its right-hand side operand when its left-hand side is `null` or `undefined`. Contrary to the logical OR (`||`), the left operand is only returned on this two values, avoiding unexpected behavior when using falsy values.
+```javascript
+const foo = null ?? 'default string'
+console.log(foo)
+// expected output: "default string"
+
+const baz = 0 ?? 42
+console.log(baz)
+// expected output: 0
+```
+
+Parenthesis are needed to indicate precedence when using the nullish coalescing operator in combination with the AND (`&&`) and OR (`||`) operators. Otherwise, it will throw a `SyntaxError`.
+```javascript
+(null || undefined) ?? "foo"
+```
+
 # Asynchronous Code
 ## SetTimeout & SetInterval
 ### Zero delay setTimeout `setTimeout(func)`
