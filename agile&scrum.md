@@ -96,6 +96,79 @@ They are the ones who actually do the development of the product. They can be a 
 
 The development team is the one who drives the plan for each sprint. They forecast how much work they believe they can complete over the interation.
 
+# General Concepts
+## User Stories
+It hels shift the focus from writing about requirement to talking about them. They typically folow the pattern: **As a [type of user], I want [some goal] so that [some reason or need]**.
+
+They should be written in non-technical terms from the perspective of the user. Be sure to state the goal and the need. The functional requirements come later.
+
+### Epics
+Epics serve as big, broad strokes, and are then broken into several user stories. By starting with an epic, we can plan out the functionality of the product without committing to exact details.
+
+## Story Points and Complexity Points
+Story points are used to estimate the amount of effort required to deliver a user story. Some of their features are:
+- represent the contributions of the whole team;
+- do not equate directly to time the task might take;
+- are a rough measure for planning purposes;
+- are assigned in a Fibonacci-like sequence;
+- estimate the 'size' of stories relative to each other.
+
+### Planning Poker
+It's an estimation and planning technique used to estimate the development effort required for a user story or a feature. It's done for one user story at a time. The unit used for values can be any kind of estimation unit agreed on by the team.
+1. Each estimator holds an idential set of poker cards with various values, usually from the Fibonacci Sequence.
+2. The Product Owner explaints the current user story.
+3. The team discusses it, clarifying any questions they might have.
+4. At the end of the discussion, each person selects a card. All cards are then revealed at the same time.
+5. If all the cards have the same value, the value becomes the estimate for the story. If there are differences, the team discusses the reasons.
+6. The process of choosing a card is repeated until there is a consensus on the estimate.
+
+## Parallel Development
+The development process is separated into multiple branches, to provide a versatile product with stable releases and new features.
+
+Usually there is a master branch, which is the most stable. From the main branch, other branches are created to add new features. Eventually they will be merged to the master branch.
+
+## Burndown and Burnup Charts
+They are used to measure progress of a project. Both charts visually represent work vs. time. They are used to see how teams are doing during a sprint.
+
+__Burndown charts__ → how much works is left (Y axis) vs. amount of time remaining (X axis). There are two lines, one straight line representing the "ideal work remaining line", and the other the "actual work remaining line".
+
+__Burnup charts__ → show the work that has been completed vs. the total amount of work and time remaining. Three lines are used to represent the total work (steady across the top of the chart, shows scope change), the ideal line, and the completed work.
+
+[![burnup chart example](https://www.freecodecamp.org/news/content/images/2020/03/ReleaseBurnup.png)](https://sites.google.com/a/effectivepmc.com/www/blog/agile/information-radiators/burn-up-chart?overridemobile=true)
+
+## Task Boards and Kanban
+It's an excellent method both for teams doing software development and individuals tracking their personal tasks. They limit our work-in-progress to a finite number of tasks at a given time. When one task is finished, we move another task to its place.
+
+In it's simplest form, three columns are commonly used:
+- To Do
+- Doing
+- Done
+
+But they are customizable to whatever needs the team/individual has.
+
+## Integration Hell
+Slang term for when all the members of a development team go through the process of implementing their code at random times with no way to incorporate the different pieces of code into one seamless string of code.
+
+The longer components are developed in isolation, the more interfaces tend to diverge from what is expected. At the end of the project, it's extremely difficult to integrate all the code.
+
+Continuous Integration is the Angile antidote to this problem. Integrating the project daily keeps interfaces from diverging too much.
+
+## Nonfunctional Requirements
+A **non-functional requirement (NFR)** is a requirement that specifies criteria related to the operation of a system, rather than specific behaviors. They can be divided into two main categories:
+- __Execution qualities__ → safety, security, and usability. Observable at run time.
+- __Evolution qualities__ → testability, maintainability, extensibility, and scalability. Embodied in the static structure of the system.
+
+Usually we can refine a non-functional requirement into a set of functional requirements as a way of detailing and allowing (partial) testing and validation.
+
+## Functional Managers
+A **functional manager** is a person that has management authority over a group of people. It's role is not project based. They are often responsible for developing people in their groups, securing budgets and time for people. However different models exist, including ones where the functional manager role is distributed to other roles within the organization.
+
+## Acceptance Criteria
+It tells the delivery team how the code should behave. In Test Driven Development (TDD), it may provide the framework for the automated tests. Moreover, if the user story does not meet each of the Acceptance Criteria, the Product Owner should not accept the story at the end of the iteration.
+
+It can also be viewed as an instrument to protect the delivery team against additions outside of that story's scope.
+
 # Sources
 [Agile Methods and Methodology for Beginners – FreeCodeCamp](https://www.freecodecamp.org/news/agile-methods-and-methodology-for-beginners/)\
-[Atlassian Agile Coach](https://www.atlassian.com/agile/scrum)
+[Atlassian Agile Coach](https://www.atlassian.com/agile/scrum)\
+[Complete Guide to Agile Methodology – FreeCodeCamp](https://www.freecodecamp.org/news/complete-guide-to-agile-methodology/)
