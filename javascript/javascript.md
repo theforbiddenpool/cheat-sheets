@@ -38,6 +38,22 @@ In every recursion, there are always at least 2 logical cases:
 
 > __Note:__ In JavaScript, recursion is usually fine for simple algorithms that don't need too many recursive calls. If that happens, the algorithm is either not going perform well or going to crash because of stack overflow.
 
+Most loops can be rewritten in a recursive style, however most JavaScript compilers are not currently optimized to support them safely.
+
+Recursion is best applied when we need to call the same function repeatedly with different parameters from within a loop, *e.g.* fractal math, sorting, or traversing the nodes of complex or non-linear data structures. It allows for the construction of stateless code.
+
+### Tail Call Optimization
+Most implementations of JavaScript don't have a standard way to prevent recursive functions from stacking up on themselves indefinitely.
+
+In many functional languages, such as Haskell, this is managed using a technique called **tail call optimization**. With tail call optimization each successive cycle in a recursive function takes place immediately, instead of stacking up in memory.
+
+Theoretically, this is part of the standard for ECMAScript 6, however it has yet to be fully implemented by most platforms.
+
+### Trampoline Functions
+It's possible to construct a custom **trampoline function** to manage recursive execution iteratively, keeping only one operation on the stack at a time.
+
+However, this usually slows down performance in favor of safety. Additionally, much of the readability of recursive functions is lost.
+
 ## Higher-Order Functions
 A **Higher-Order Function** is a function that maps:
 - from function to output;
@@ -491,4 +507,5 @@ import Editor from './Editor.js';
 [Function as First-Class Objects in JavaScript: Why Does This Matter? – DevelopIntelligence](https://www.developintelligence.com/blog/2016/10/javascript-functions-as-first-class-objects/)\
 [How to use the apply(?), call(?), and bind(➰) methods in JavaScript – FreeCodeCamp Blog](https://www.freecodecamp.org/news/how-to-use-the-apply-call-and-bind-methods-in-javascript-80a8e6096a90/)\
 [Error handling, "try..catch" – JavaScript.info](https://javascript.info/try-catch)\
-[JavaScript Try Catch & Error Handling ES6 Tutorial (2020) – CodingSrc Youtube](https://www.youtube.com/watch?v=ye-aIwGJKNg)
+[JavaScript Try Catch & Error Handling ES6 Tutorial (2020) – CodingSrc Youtube](https://www.youtube.com/watch?v=ye-aIwGJKNg)\
+[Recursion in Functonal JavaScript – sitepoint](https://www.sitepoint.com/recursion-functional-javascript/)
