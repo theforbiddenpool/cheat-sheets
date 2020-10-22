@@ -124,6 +124,41 @@ let addTen = add(10) // also returns a function
 addTen(1) // returns 11
 ```
 
+## Closures
+__Closure__ → inner function that has access to the parent function's scrope, even after the parent function has finished executing.
+```javascript
+function makeCounter() {
+  let counter = 0;
+
+  function make() {
+    counter += 1;
+    return counter;
+  }
+
+  return make;
+}
+
+const myCounter = makeCounter()
+
+console.log(myCounter()); // Output: 1
+console.log(myCounter()); // Output: 2
+```
+Closures internally store references to their *outer varibles*, and can access and update their values. When the outer function has finished executing, no other part of the code can access or manipulate the `counter` variable.
+
+## Currying
+It's when a function takes its arguments one at a time.
+```javascript
+const add = function(x) {
+  return function(y) {
+    return x + y
+  }
+}
+
+const add10 = add(10)
+add(10) // 20
+add(20) // 30
+```
+
 ## ES6
 Arrow function → `(x, y) => {}`\
 Implicit return with arrow functions → `() => 'value'`
@@ -558,4 +593,6 @@ import Editor from './Editor.js';
 [Error handling, "try..catch" – JavaScript.info](https://javascript.info/try-catch)\
 [JavaScript Try Catch & Error Handling ES6 Tutorial (2020) – CodingSrc Youtube](https://www.youtube.com/watch?v=ye-aIwGJKNg)\
 [Recursion in Functonal JavaScript – sitepoint](https://www.sitepoint.com/recursion-functional-javascript/)\
-[Demystifying JavaScript Variable Scope and Hoisting – sitepoint](https://www.sitepoint.com/demystifying-javascript-variable-scope-hoisting/)
+[Demystifying JavaScript Variable Scope and Hoisting – sitepoint](https://www.sitepoint.com/demystifying-javascript-variable-scope-hoisting/)\
+[JavaScript Closures – TutorialRepublic](https://www.tutorialrepublic.com/javascript-tutorial/javascript-closures.php)\
+[Learn JavaScript Closures in 6 Minutes – FreeCodeCamp](https://www.freecodecamp.org/news/learn-javascript-closures-in-n-minutes/)
