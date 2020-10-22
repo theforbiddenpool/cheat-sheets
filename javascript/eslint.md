@@ -5,20 +5,31 @@ _Install ESLint dependency as a devDependency:_
 $ npm install --save-dev eslint
 ```
 
+_Install ESLint as a global dependency:_
+```
+$ npm install -g eslint
+```
+
 _Add the lint line to our package.json:_
 ```json
 ...
 "scripts": {
-    "lint": "eslint . --ext.js"
+  "lint": "eslint . --ext.js"
 }
 ...
 ```
 This means you will be running the linter on the entire project directory, on any file that has an extension of .js. You can change the flag to be more specific.
 
 _Create a new file at the root of our project called .eslintrc.js:_
-```json
+```javascript
 module.exports = {};
 ```
+
+We can also let ESLint to the configuration for us by running:
+```
+$ eslint --init
+```
+We'll be prompted different questions, and a *.eslintrc.js* will be created for us.
 
 ## Babel parser
 ESLint allows us to specify a parses that allows the linting processing to look at the same code as your browser sees. In this case, we will be using Babel's ESLint parser. To install it:
@@ -27,7 +38,7 @@ $ npm install --save-dev babel babel-eslint
 ```
 
 And update the .eslintrc.js config file with some new options:
-```json
+```javascript
 module.exports = {
   "env": {
     "browser": true,
@@ -47,7 +58,7 @@ $ npm install --save-dev eslint-plugin-react
 ```
 
 And update our .eslintrc.js file again:
-```json
+```javascript
 module.exports = {
   "settings": {
     "react": {
@@ -70,8 +81,8 @@ The setting will automatically detect what React version we're using, and adding
 
 ## Rules
 It's recommended that you enable ESLint's won recommended rules. And since we're running a React app, we need to add the plugin's rules. Add it to the .eslintrc.js config file:
-```json
-...
+```javascript
+  // ...
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended"
