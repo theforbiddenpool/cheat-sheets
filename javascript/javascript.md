@@ -2,6 +2,50 @@
 
 __Falsy values__ → value that is considered false when encountered in a boolean context. In JavaScript, these are: `false`, `0`, `-0`, `""` [empty string], `NaN`, `undefined`, and `null`.
 
+# The Inner-Workings of JavaScript
+## Variable Scope
+The scope of a variable is controlled by the location of the variable declaration. JavaScript currently has three scopes: 
+- __global__ → variables declared outside of a function.
+- __local__ → created by functions.
+- __block__ → created by block structures, such as *for* and *if* statements. They are only created using the `let` and `const` keywords.
+
+__Lexical (static) scope__ → the static structure of a program determines the variable scope. The JavaScript interpreter starts at the current executing scope, and works its way out until it finds the variable in question. If the variable is not found, then an exception is thrown.
+
+## Hoisting
+There are two fundamental concepts to understand hoisting: **declaration** and **assignment**.
+```javascript
+let state; // variable declaration
+state = "ready"; // varible assignment
+
+let state2 = "not ready"; // variable declaration + assignment
+```
+In this example, the last line of code, even though it seems like on state, the JavaScript engine treats it as two separate statements, like in the two first lines.
+
+No matter where variables are declared within a particular scope, all variable declarations are move to the top of their scope (global or local). This is called **hoisting**. Any assignments are left in place.
+```javascript
+console.log(state) // output: undefined
+var state = "ready";
+```
+
+With the new ES6 `let` or `const` keywords, this will result in a `ReferenceError`.
+```javascript
+console.log(state)
+// ReferenceError: can't access lexical declaration 'state' before initialization
+
+let state = "ready"
+```
+
+Hosting also affects function declarations.
+```javascript
+showState() // output: Ready
+
+function showState() {
+  console.log('Ready')
+}
+```
+
+Functions are hoisted first, then variables.
+
 # Functions
 > A function is a mapping between an input and an output.
 
@@ -10,6 +54,12 @@ There are several rules a function must follow to be considered a function:
 - Same input cannot map to multiple inputs.
 
 In JavaScript, a function always returns something. If we don't specify what that something is, JS will return `undefined` for us. If the function doesn't return anything, we might be getting our return some place else. In that case, it's an **impure function** and its causing a side-effect. We should avoid doing that whenever possible.
+
+### Function declaration vs. Function assignment
+```javascript
+function showState() {} // function declaration
+const showState2() = function() {} //function expresson
+```
 
 ### Functions As First-Class Objects
 __First-class citizenship__ → an entity supports all the operational properties inherent to other entities. In other words, means "being able to do what everyone else can do".
@@ -198,7 +248,6 @@ const numbers2 = [4, 5, 6];
 console.log(sum(...numbers));
 
 const numbers3 = [...numbers, ...numbers2];
-
 ```
 
 # Objects
@@ -508,4 +557,5 @@ import Editor from './Editor.js';
 [How to use the apply(?), call(?), and bind(➰) methods in JavaScript – FreeCodeCamp Blog](https://www.freecodecamp.org/news/how-to-use-the-apply-call-and-bind-methods-in-javascript-80a8e6096a90/)\
 [Error handling, "try..catch" – JavaScript.info](https://javascript.info/try-catch)\
 [JavaScript Try Catch & Error Handling ES6 Tutorial (2020) – CodingSrc Youtube](https://www.youtube.com/watch?v=ye-aIwGJKNg)\
-[Recursion in Functonal JavaScript – sitepoint](https://www.sitepoint.com/recursion-functional-javascript/)
+[Recursion in Functonal JavaScript – sitepoint](https://www.sitepoint.com/recursion-functional-javascript/)\
+[Demystifying JavaScript Variable Scope and Hoisting – sitepoint](https://www.sitepoint.com/demystifying-javascript-variable-scope-hoisting/)
