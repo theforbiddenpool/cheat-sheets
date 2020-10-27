@@ -118,3 +118,7 @@ When we store DOM nodes inside data structures, we need to update them whenever 
 
 # Sources
 [How JavaScript works: memory management + how to handle 4 common memory leaks](https://blog.sessionstack.com/how-javascript-works-memory-management-how-to-handle-4-common-memory-leaks-3f28b94cfbec)
+
+# Too Long and Complicated To Put Here
+[What Every JavaScript Developer Should Know About Floating Points – modernweb](https://modernweb.com/what-every-javascript-developer-should-know-about-floating-points/)\
+[How numbers are encoded in JavaScript – 2ality](https://2ality.com/2012/04/number-encoding.html)
