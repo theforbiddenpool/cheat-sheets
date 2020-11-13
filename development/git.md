@@ -40,7 +40,7 @@ $ git config --global core.editor <editor>
 
 _Specify the merge tool to use:_
 ```
-$ git config --global merge.too <tool>
+$ git config --global merge.tool <tool>
 ```
 
 _Set the default of push behaviour to just push the current branch:_ <small>(default since git v2.0)</small>
@@ -166,7 +166,7 @@ $ git reset HEAD <file-name>
 ```
 `HEAD` refers to the last commit on the current branch.
 
-_Reset modifications to the state the specified file was in at the last commit:_
+_Reset modifications made to specified file in at the last commit:_
 ```
 $ git checkout -- <file-name>
 ```
@@ -175,10 +175,18 @@ _Undo last commit:_
 ```
 $ git reset [options] [HEAD^]
 ```
+Without any options, the reset will undo last commit and put the changes into the working directory.
 -	`--soft` → put changes into staging.
--	`--hard` → undo last commit and all changes.
+-	`--hard` → undo last commit and all changes. It will leave any untracked files alone.
 
 `HEAD^` means the commit one before current `HEAD`. If `HEAD` is not specified, it will undo the uncommitted changes.
+
+_Get rid of any untracked files and directories:_
+```
+$ git clean -df
+```
+- `-d` → directories.
+- `-f` → force the changes.
 
 _Undo a given commit, but create a new one without deleting the older one:_
 ```
@@ -288,6 +296,7 @@ _Merge two branches:_
 $ git merge <branch-name>
 ```
 -	`--no-ff` → do not do a fast-foward merge.
+- `--abort` → abort a merge.
 
 For example merge a side branch to the master one. It will appear an editor for a merge message, to explain why the merge is necessary.
 

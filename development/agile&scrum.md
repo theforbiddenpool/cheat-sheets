@@ -28,7 +28,7 @@ Teams consistenly <mark>ship small pieces of code to production at a rapid pace<
 Instead of forcing people to comform to strict ideation and specifications, we give them more space to experiment. Individual team members can innovate.
 
 #### #2: Working software over comprehensive documentation
-Instead of verbose specifications and planning, just write a few lines of code that work. Test it, get feedback, and shit it.
+Instead of verbose specifications and planning, just write a few lines of code that work. Test it, get feedback, and ship it.
 
 #### #3: Customer collaboration over contract negotiation
 Build something small and see if your customers like it. If they do, keep going. This promotes a quick feedback loop to get the customer involved.
