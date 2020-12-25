@@ -192,7 +192,7 @@ _Undo a given commit, but create a new one without deleting the older one:_
 ```
 $ git revert <commit-hash>
 ```
-It won't touch the commit history - you can still see all of the commits in your history, even the reverted ones.\
+It won't touch the commit history - you can still see all of the commits in your history, even the reverted ones. It's useful to revert changes in remote repositories.\
 You will be thrown to a editor to write a commit message.
 
 ## Restoring commits after a hard reset
@@ -261,9 +261,14 @@ _Show information on remote and local branches:_
 $ git remote show <name-repository>
 ```
 
+_Change remote repository URL:_
+```
+$ git remote set-url <remote-repo> <url>
+```
+
 _Remove remote branch:_
 ```
-$ git push <name-repository> :<branch-name>
+$ git push <name-repository> --delete <branch-name>
 ```
 
 _Clean up deleted remote branches:_
@@ -299,6 +304,14 @@ $ git merge <branch-name>
 - `--abort` → abort a merge.
 
 For example merge a side branch to the master one. It will appear an editor for a merge message, to explain why the merge is necessary.
+
+_Merge a file from one branch to another:_\
+We'll need to checkout to the branch we want to merge the file.
+```
+$ git checkout development
+$ git checkout --patch master index.html
+```
+To completely overwrite the *index.html* file on the *development* branch, leave out the `--patch` flag.
 
 ## Rebase
 _Pulls down all changes from a remote repository, but don't merge them:_
