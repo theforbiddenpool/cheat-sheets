@@ -62,7 +62,7 @@ And update our .eslintrc.js file again:
 module.exports = {
   "settings": {
     "react": {
-        "version": "detect"
+      "version": "detect"
     }
   },
   "env": {
@@ -78,6 +78,11 @@ module.exports = {
 ```
 
 The setting will automatically detect what React version we're using, and adding the react plugin.
+
+#### Some popular plugins
+- `eslint-config-airbnb` → Airbnb's configuration style.
+- `eslint-plugin-import` → support linting of ES6+ import/export syntax.
+- `eslint-plugin-jsx-a11y` → accessibility rules on JSX elements.
 
 ## Rules
 It's recommended that you enable ESLint's won recommended rules. And since we're running a React app, we need to add the plugin's rules. Add it to the .eslintrc.js config file:
@@ -100,12 +105,12 @@ $ npm lint
 - Semistandard
 - Google's JS Style Guide
 
-#### Other linting tools to check out
-- __JSHint__: an alternative to ESLint
-- __Stylelint__: a linting tool for CSS and CSS-like syntaxes like Sass
-- __Awesome ESLint__: a simple list of awesome configs, parsers, plugins, and other tools to boost your ESLint game
-- __Webhint__: linting tool for accessibility, speed, and more website best practices
-- __A11y JSX Plugin__: ESLint plugin for checking accessibility rules on JSX elements
+# Other linting tools to check out
+- __JSHint__ → an alternative to ESLint.
+- __Stylelint__ → a linting tool for CSS and CSS-like syntaxes like Sass.
+- __Awesome ESLint__ → a simple list of awesome configs, parsers, plugins, and other tools to boost your ESLint game.
+- __Webhint__ → linting tool for accessibility, speed, and more website best practices.
+- __A11y JSX Plugin__ → ESLint plugin for checking accessibility rules on JSX elements.
 
 # Sources
 [What is linting and how can it save you time? - FreeCodeCamp](https://www.freecodecamp.org/news/what-is-linting-and-how-can-it-save-you-time/)

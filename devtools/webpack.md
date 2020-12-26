@@ -128,6 +128,7 @@ We then have to configure Babel, in *babel.config.json*.
   ]
 }
 ```
+All the presets we use should be in that array. For React projects, we'll also need *@babel/preset-react*.
 
 And then the loader:
 ```javascript
@@ -137,10 +138,41 @@ rules: [
   {
     test: /\.js$/,
     exclude: /node_modules/,
-    use: ["babel-loader"]
+    use: ['babel-loader']
   }
 ]
 ...
+```
+When working with React projects, in the regex string we should also add the `.jsx` extension, *e.g.* `\.(js|jsx)$`
+
+So that in `import` statemens we don't have to keep putting the JavaScript files extension, we can use the `resolve` property.
+```javascript
+module.exports {
+  //...
+  resolve: {
+    extensions: ['.js', '.jsx']
+  },
+}
+```
+
+#### ESLint
+ESLint will tell us if we have any Syntax errors, and can help us keep a consistent code style between different team members. This loader will check for any mistakes, and display them in the console.
+```
+$ npm install --dev eslint eslint-loader 
+```
+
+Add then add the loader in Webpack's config file:
+```javascript
+//...
+rules: [
+  //...
+  {
+    test: /\.js$/,
+    exclude: /node_modules/,
+    use: ['eslint-loader']
+  }
+],
+//...
 ```
 
 ## Code splitting
@@ -169,4 +201,5 @@ __Code splitting__ or __lazy loading__ → optimization technique for avoiding l
 __Chunk__ → piece of code that's splitted.
 
 # Sources
-[A mostly complete guide to webpack (2020) – Valentino Gagliardi](https://www.valentinog.com/blog/webpack/)
+[A mostly complete guide to webpack (2020) – Valentino Gagliardi](https://www.valentinog.com/blog/webpack/)\
+[The Complete Junior to Senior Web Developer Roadmap (2020)](https://www.udemy.com/course/the-complete-junior-to-senior-web-developer-roadmap/), by Andrei Neagoie
