@@ -72,7 +72,7 @@ Garbage collectors are unpredictable. We can't really tell when a collection wil
 This behavior may cause higher-than-usual memory usage if allocations are made, most of those elements are marked as unreachable, but no further allocations are performed.
 
 ## Memory leaks
-__Memory leaks__ → pieces of memory that the application has used in the past and is not needed any longer but has not yet been released.
+__Memory leaks__ → pieces of memory that the application has used in the past and is not needed any longer but has not yet been released. *e.g.* event listeners that aren't removed when we change to another page.
 
 Only developers can make it clear whether a piece of memory can be freed. Certain programming languages provide features that help developers do this, while others expect developers to be completely explicit about it.
 

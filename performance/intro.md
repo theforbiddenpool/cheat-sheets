@@ -36,11 +36,12 @@ They take care of optimization and delivery for us, including caching. An exampl
 When a photo is taken, extra data, such as the device used, date, and location is also saved. This data is extra information we don't need, and increases the photo's size. We can use [online tools](https://www.verexif.com/en/) or programs to remove it.
 
 ## Reducing Download Frequency
-There is a maximum amount of files the HTTP protocol allows to concurrently download from the same domain (depends on the browser). By reducing the amount of components a page requires, we reduce the number of HTTP requests we have to make. HTTP also has a limit to a file's total size.
+In HTTP1, there is a maximum amount of files the HTTP protocol allows to concurrently download from the same domain (depends on the browser). By reducing the amount of components a page requires, we reduce the number of HTTP requests we have to make. HTTP also has a limit to a file's total size.
+
+We can minimize our files and combine them into one. This no longer applies in HTTP2, since you can request multiple files per connection.
 
 When using big libraries and frameworks, like Bootstrap or Foundation, we need to ask ourselves if they are really needed. Can we use flexbox or CSS grid instead? Do we really need jQuery? If we must use a library, maybe we can find lightweight ones.
 
-We can minimize our files and combine them into one.
 
 # Frontend
 ## Critical Render Path
@@ -77,6 +78,73 @@ JavaScript can modify both the DOM and CSSOM. It's **parser-blocking** - only wh
 
 #### Redraw
 During runtime, JavaScript makes changes on the DOM/CSSOM, causing the browser to go through the Render Tree, Layout, and Paint phases again. Current browsers are smart enough to only do a partial update, however we can't be reliant on it to be efficient or performant. It's our job to make sure it's efficient.
+
+## Animations
+Animations require a lot of processing and graphics power, and can cause serious lag. This is essentially true when it comes to mobile devices that usually have weaker procesing power.
+
+The best example are animations during scrolling, *e.g.* fading elements while scrolling. The browser has to process both the visual changes associated with the scrolling a dynamic page, and all our animations at the same time.
+
+## Code Splitting
+__Code Splitting__ → allows us to reduce the amount of work being done during the execution, by sending only the necessary JavaScript to the page being visited by the user.
+
+This is achieved using a tool like Webpack, and dynamic imports.
+```javascript
+import('./components/Page2').then((Page2) => /** do something with the component **/)
+```
+In React, to access this component if it was exported using the `default` keyword, we have to write `Page2.default`.
+
+When it comes to code chunking, there are two ways to do it:
+- __Route-based Chunking__ → splits the JavaScript files based on the routes. Most of the time, this is what you want to do.
+- __Component-based Chunking__ → split on a component level. Better for when the homepage gets really really big. We can apply it on small, hidden components, *e.g.* a hidden menu. Because the code is so small, it will load fast.
+
+There are multiple ways to approach code splitting in a project sense. One of them is creating an Higher Order function:
+```javascript
+export default function asyncComponent(importComponent) {
+  function AsyncComponent(props) {
+    const [Component, setComponent] = useState(null);
+
+    useEffect(() => {
+      const { default } = await importComponent();
+      setComponent(default);
+    }, [])
+
+    return Component ?
+      <Component {...props} />
+      : null
+  }
+
+  return AsyncComponent
+}
+
+// On the page we want to import the component
+//...
+} else if(route === 'page2') {
+  const AsyncPage2 = AsyncComponent(() => import('./components/Page2'));
+  return AsyncPage2
+}
+//...
+```
+We can also use libraries like [React Router](https://reactrouter.com/), and [Loadable components](https://loadable-components.com/).
+
+### `React.lazy()`
+`React.lazy()` was added in version 16.6. It allows us to do code splitting very easily. However is not yet available for server side rendered apps.
+```javascript
+const OtherComponent = React.lazy(() => import('./OtherComponent'));
+```
+
+It can take a few milliseconds to load this asynchronous component. So the user is not staring at a blank screen while this async component loads, we can use a `Suspense` component. It will display something else while the async component is loading.
+```jsx
+<Suspense fallback={<div>Loading...</div>}>
+  <OtherComponent />
+</Suspense>
+```
+
+# Keywords
+__Vendor file__ → file with JavaScript code that will be used in our entire app, *e.g.* ReactJS library. Usually it's comprimised of third-party scripts.
+
+__Production build__ → build that is faster than the development build - the file is minified, tools such as debugging tools are removed, etc. Created by running the command `npm run build`.
+
+__Tree Shaking__ → removing all unsed code when building our app. Webpack can be setup to do this for us.
 
 # Sources
 [The Complete Junior to Senior Web Developer Roadmap (2020)](https://www.udemy.com/course/the-complete-junior-to-senior-web-developer-roadmap/), by Andrei Neagoie

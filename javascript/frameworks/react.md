@@ -237,6 +237,9 @@ Writing React and Redux code generally requires some configuration. If you are i
 
 Alternively you can enable [Babel](https://babeljs.io/) as a JavaScript Preprocessor in [CodePen](https://codepen.io/), add React and ReactDOM as external JavaScript resourses, and work there as well.
 
+# Resources
+- [why-did-you-update – GitHub](https://github.com/welldone-software/why-did-you-render) → patches React to notify us about avoidable re-renders.
+
 # Sources
 [freeCodeCamp](https://freecodecamp.org/)\
 [Hooks API Reference - React.js Docs](https://reactjs.org/docs/hooks-reference.html)
