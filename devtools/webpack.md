@@ -200,6 +200,9 @@ __Code splitting__ or __lazy loading__ → optimization technique for avoiding l
 
 __Chunk__ → piece of code that's splitted.
 
+# Resources
+[webpack-howto – Github](https://github.com/petehunt/webpack-howto)
+
 # Sources
 [A mostly complete guide to webpack (2020) – Valentino Gagliardi](https://www.valentinog.com/blog/webpack/)\
 [The Complete Junior to Senior Web Developer Roadmap (2020)](https://www.udemy.com/course/the-complete-junior-to-senior-web-developer-roadmap/), by Andrei Neagoie
