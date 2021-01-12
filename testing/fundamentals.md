@@ -1,7 +1,7 @@
 Frontend testing can be divided into 3 categories:
 1. __E2E Testing__ → the entire application is tested in real-world scenarios, which includes communication between different components (database, APIs, etc) and in a diversity of browsers. It takes the most time and cost.
-2. __Integration Testing__ → testing the interaction between elements of our application, *e.g.* communication between UI and an API.
-3. __Unit Testing__ → isolated parts of the code are tested. It's the fastest and cheapest to implement.
+2. __Integration Testing__ → testing the interaction between elements of our application, *e.g.* communication between database and the express app. This is where we would use **mocks** or **spies** to ensure expected side effects, or **subbs** to fake a database call.
+3. __Unit Testing__ → isolated parts of the code are tested. It's specificially great when dealing with pure functions. It's the fastest and cheapest to implement. However, they do not test the connection between things.
 
 [![testing categories pyramid](https://res.cloudinary.com/practicaldev/image/fetch/s--OypgjlFL--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://user-images.githubusercontent.com/15229355/55113335-24fcff00-50df-11e9-87e8-cdd5e0e6ad3f.png)](https://dev.to/christopherkade/introduction-to-front-end-unit-testing-510n "Introduction to Front-End unit testing – Dev.to")
 
@@ -13,7 +13,7 @@ function add(x, y) {
 }
 
 // 2. The test suite
-describle("add method", () => {
+describe("add method", () => {
   // 3. The unit test
   it("should return 2", () => {
     // 4. The assertion
@@ -44,9 +44,21 @@ Some of the more mature tools to run these type of tests are [Cypress](https://w
 # Keywords
 __Testing framework__ → allows to easily set up a testing environment and run suites. An example is [Jest](https://jestjs.io/), maintained by a team at Facebook.
 
-__Testing code coverage__ → it represents the percentage of the code being tested. We should keep in mind code coverage doesn't mean we've tested every scenario for a given component, so use it with caution. *create-react-app* uses [Istanbul](https://istanbul.js.org/) to report the code coverage, and we can run it using `npm run test --coverage`.
+__Testing library__ → the scaffolding, giving us the ability to use some function calls and some methods for us to write our tests. *e.g.* Jasmine, Jest, Mocha.
+
+__Assertion library__ → provides assertion functions. Both Jasmine and Jest have their own assertion libraries, and Mocha is usually paired with Chai.
+
+__Test Runner__ → allows us to run our tests. *e.g.* Jasmine, Jest, Mocha, Karma. Tests can run in different environments - Karma allows us to run tests in the browser.
+
+__Headless browser__ → stripped down browser usually used to run tests due to better performance. *e.g.* Puppeteer.
+
+__Mock__, __Spies__ and __Stubbing__ → **Spies** provides us informantion about functions, *e.g.* how many times they were called, in what cases, and by who. **Subbing** replaces selected functions with a function to ensure the expected behavior happens. **Mocks** fake a function or a behavior to test different parts of a process. Both Jasmine and Jest have their own verion, and Mocha is often paired with Sinon.js.
+
+__Testing code coverage__ → it represents the percentage of the code being tested. We should keep in mind code coverage doesn't mean we've tested every scenario for a given component, so use it with caution. *e.g.* Instanbul, Jest. To report the code coverage on a *create-react-app*, and we can run `npm run test --coverage`.
 
 __Test Driven Development (TDD)__ → the act of first deciding the specifications of our program, formulating a failing test, and only then writing the code to make the test pass.
+
+__Behavior Driven Development (BDD)__ → describing what a function does, and say what behavior we expect out of it. It's used by the most popular testing frameworks.
 
 # Sources
 [Introduction to Front-End unit testing – Dev.to](https://dev.to/christopherkade/introduction-to-front-end-unit-testing-510n)\
