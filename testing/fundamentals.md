@@ -62,4 +62,5 @@ __Behavior Driven Development (BDD)__ → describing what a function does, and s
 
 # Sources
 [Introduction to Front-End unit testing – Dev.to](https://dev.to/christopherkade/introduction-to-front-end-unit-testing-510n)\
-[New to front-end testing! Start from the top of the pyramid! – ITNext](https://itnext.io/new-to-front-end-testing-start-from-the-top-of-the-pyramid-a0039615353c)
+[New to front-end testing! Start from the top of the pyramid! – ITNext](https://itnext.io/new-to-front-end-testing-start-from-the-top-of-the-pyramid-a0039615353c)\
+[The Complete Junior to Senior Web Developer Roadmap (2020)](https://www.udemy.com/course/the-complete-junior-to-senior-web-developer-roadmap/), by Andrei Neagoie
