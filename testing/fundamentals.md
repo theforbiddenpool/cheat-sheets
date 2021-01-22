@@ -5,6 +5,8 @@ Frontend testing can be divided into 3 categories:
 
 [![testing categories pyramid](https://res.cloudinary.com/practicaldev/image/fetch/s--OypgjlFL--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://user-images.githubusercontent.com/15229355/55113335-24fcff00-50df-11e9-87e8-cdd5e0e6ad3f.png)](https://dev.to/christopherkade/introduction-to-front-end-unit-testing-510n "Introduction to Front-End unit testing – Dev.to")
 
+Writing tests shouldn't be complicated. We should try to structure our application in a way that writing tests is really simple. This is easily achievable by creating **pure functions**.
+
 ## Unit Testing
 ```javascript
 // 1. Method to be tested
