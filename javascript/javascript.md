@@ -353,10 +353,217 @@ Parenthesis are needed to indicate precedence when using the nullish coalescing 
 `parseInt(str[, radix])` → converts string to number.
 - `radix` → specifies the base for the number converted (from 2 [binary] to 36).
 
+# Class
+Classes introduce new features which are useful for object-oriented programming.
+```javascript
+class Animal {
+  constructor(name) {
+    this.name = name
+  }
+
+  eat() {
+    console.log(`${this.name} is eating`)
+  }
+
+  // ...
+}
+
+let cat = new Animal('Tobias')
+cat.eat() // output: Tobias is eating
+```
+- a function `Animal` is created. The function code is taken from the `constructor` method (assumed empty if we don't write such method).
+- the class methods are stored in `Animal.prototype`.
+
+Like functions, classes can be defined inside another expression, passed around, returned, assigned, etc. Classes also may include getters/setters, and computed properties.
+
+_Example of a computed method name:_
+```javascript
+class User {
+  ['say' + 'Hi']() {
+    console.log('Hello')
+  }
+}
+
+new User().sayHi()
+```
+
+### Class vs. Prototype
+Although we can create a class with the exact same functionality as a pure function, there are some differences worth noting:
+1. Internally `class` is labeled `[[FunctionKind]]:"classConstructor"`. The language checks for that property in different places, *e.g.* a class must be created with the `new` keyword.
+2. Class methods are non-enumerable. All class methods have the `enumerable` flag set to `false`.
+3. All code inside the class construct is automatically in strict mode.
+4. Class declarations **are not** hoisted.
+
+## Fields
+Class fields allows us to add any properties. They are set on individual objects, not in `Animal.prototype`.
+
+#### Public field declaration
+```javascript
+class Animal {
+  name = 'chicken'
+}
+
+let animal = new Animal()
+console.log(animal.name) // output: chicken
+console.log(Animal.prototype.name) // output: undefined
+```
+
+#### Private field declaration
+Private fields cannot be referenced outside from the class - they can only be read or written within the class body.
+```javascript
+class Rectangle {
+  #height = 0
+  #width
+
+  constructor(height, width) {
+    this.#height = height
+    this.#width = width
+  }
+}
+```
+Private fields can only be declared up-front in a field declaration.
+
+> __Note__: old browsers may need a polyfill
+
+### Making bound methods
+Functions in JavaScript have a dynamic `this` - it depends on the context of the call. If an object is passed around, it will "lose its `this`". There are two possible solutions:
+1. Pass a wrapper function, *e.g.* setTimeout(() => button.click(), 100).
+2. Bind the method to object, *e.g.* in the constructor.
+3. Use class fields:
+```javascript
+class Animal {
+  constructor(name) {
+    this.name = name
+  }
+
+  eat = () => {
+    console.log(`${this.name} is eating`)
+  }
+}
+
+const animal = new Animal('chicken')
+setTimeout(animal.eat, 1000)
+```
+## Static methods and properties
+__Static Members__ → can be called without instantiating their class and **cannot** be called through a class instance. They are assigned to the class function itself. Often used to create utility functions for an application.
+```javascript
+class Point {
+  // ...
+  static displayName = "Point"
+  static distance(a, b) {
+    const dx = a.x - b.x
+    const dy = a.y - b.y
+
+    return Math.hypot(dx, dy)
+  }
+}
+
+console.log(Point.displayName) // output: "Point"
+```
+
+## Subclassing
+To create a class as a chield of another class, we use the `extends` keyword.
+```javascript
+class Animal {
+  constructor(name) {
+    this.name = name
+  }
+
+  speak() {
+    console.log(`${this.name} makes a noise.`)
+  }
+}
+
+class Dog extends Animal {
+  constructor(name) {
+    super(name); // passing parameters for the parent class
+  }
+
+  speak() {
+    console.log(`${this.name} barks.`);
+  }
+}
+
+let d = new Dog('Mitzie');
+d.speak(); // output: Mitzie barks.
+```
+
+Classes cannot extend regular objects. For that, we need to use `Object.setPropotypeOf()`. The `super` keyword can also be used to call corresponding methods of super class.
+A class can only have a single superclass.
+
+## Class vs. Prototypal Inheritance
+__Class__ → a class is like a blueprint - a description of the object to be created.\
+__Class Inheritance__ → Classes inherit from classes, and **create subclass relationships**: hierarchical class taxonomies . Instances are typically instantiated via constructor functions with the `new` keyword.
+
+Even if class inheritance is implemented on top of prototypal inheritance, that does not mean they it does the same thing.
+
+__Prototype__ → working object instance.\
+__Prototypal Inheritance__ → objects inherit directly from other objects. Instances are typically instantiated via factory functions, object literals, or `Object.create()`. They may be composed from many different sourse objects.
+
+The class inheritance taxonomies can create multiple problems, well-known in OO design:
+- tight coupling problem;
+- fragile base class problem;
+- inflexible hierarchy problem;
+- the duplication by necessity problem;
+- the Gorilla/banana problem.
+
+Class inheritance has many flaws, so other types of inheritance (prototypal inheritance), and composition should be prefered.
+
+There are three different kinds of prototypal inheritance:
+- __Concatenative inheritance__ → features are directly inherited from one object to the other by copying the source objects properties. Commonly referred to as **mixins**.
+- __Prototype delegation__ → an object may have al ink to a prototype for **delegation**. If the property is not found, the lookup is delegated to the delegate prototype, until it finally reaches `Object.prototype`.
+- __Functional inheritance__ → produces an object from a factory, and extends the produced object by assigning properties to it directly, using concatenative inheritance.
+
+## Class Composition
+In object composition, we can use *factories* that create an object, and *behaviors* as functions receiving that object. We combine everything using `Object.assign`.
+```javascript
+// Behaviors
+const canSayHi = self => ({
+  sayHi: () => console.log(`Hi! I'm ${self.name}`)
+});
+const canEat = () => ({
+  eat: food => console.log(`Eating ${food}...`)
+});
+
+// Combining behaviors
+const socialBehaviors = self => Object.assign({}, canSayHi(self), canEat());
+
+const alligator = name => {
+  const self = {
+    name
+  };
+
+  const alligatorBehaviors = self => ({
+    bite: () => console.log("Yum yum!")
+  });
+
+  return Object.assign(self, socialBehaviors(self), alligatorBehaviors(self));
+};
+
+
+const jack = alligator("jack");
+```
+Behaviors are often prefixed with `can` or `with`.
+
+With JavaScript Classes, the same method applies but this time with mix-ins.
+```javascript
+let MixinA = superclass => class extends superclass {
+  calc() { }
+}
+
+let MixinB = superclass => class extends superclass {
+  randomize() { }
+}
+
+class Base { }
+class Child extends MixinA(MixinB(Base)) { }
+```
+We can keep adding more mixins with the continuation of the chaining.
+
 # Asynchronous Code
 ## SetTimeout & SetInterval
 ### Zero delay setTimeout `setTimeout(func)`
-Schedules the execution of `func` **as soon as possible**. The scheduler will invoke it <mark>only after the current executing script is complete</mark>.
+Schedules the execution of `func` **as soon as possible**. The scheduler will invoke it **only after the current executing script is complete**.
 
 In the browser there is a limitation of how often nested timers can run: “after 5 nested timers, the interval is forced to be at least 4 milliseconds” ([HTML 5 standard](https://html.spec.whatwg.org/multipage/timers-and-user-prompts.html#timers)). It comes from ancient times and many scripts rely on it, so it exists for historical reasons. For server-side Javascript, that limitation does not exist.
 
@@ -595,4 +802,8 @@ import Editor from './Editor.js';
 [Recursion in Functonal JavaScript – sitepoint](https://www.sitepoint.com/recursion-functional-javascript/)\
 [Demystifying JavaScript Variable Scope and Hoisting – sitepoint](https://www.sitepoint.com/demystifying-javascript-variable-scope-hoisting/)\
 [JavaScript Closures – TutorialRepublic](https://www.tutorialrepublic.com/javascript-tutorial/javascript-closures.php)\
-[Learn JavaScript Closures in 6 Minutes – FreeCodeCamp](https://www.freecodecamp.org/news/learn-javascript-closures-in-n-minutes/)
+[Learn JavaScript Closures in 6 Minutes – FreeCodeCamp](https://www.freecodecamp.org/news/learn-javascript-closures-in-n-minutes/)\
+[Classes - MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes)\
+[Class basic syntax – JavaScript.info](https://javascript.info/class)\
+[Master the JavaScript Interview: What's the Different Between Class & Prototypal Inheritance? – Medium](https://medium.com/javascript-scene/master-the-javascript-interview-what-s-the-difference-between-class-prototypal-inheritance-e4cd0a7562e9)\
+[Class Composition in JavaScript – alligator.io](https://alligator.io/js/class-composition/)
