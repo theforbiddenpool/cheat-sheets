@@ -1,6 +1,6 @@
-**Data Structure (DS)** → a way of organizing data so that it can be used effectively. They are essential ingredients in creating fast and powerful algorithms, help to manage and organize data and make the code cleaner.
+__Data Structure (DS)__ → a way of organizing data so that it can be used effectively. They are essential ingredients in creating fast and powerful algorithms, help to manage and organize data and make the code cleaner.
 
-**Abstract Data Type (ADT)** → is an abstraction of a data structure which provides only the interface to which a data structure must adhere to. It does not give any specific details about how something should be implemented or in what programming language.
+__Abstract Data Type (ADT)__ → is an abstraction of a data structure which provides only the interface to which a data structure must adhere to. It does not give any specific details about how something should be implemented or in what programming language.
 
 Abstraction (ADT) | Implementation (DS)
 --- | ---
@@ -16,8 +16,8 @@ Map | Tree Map
 Big-O Notation gives an upper bound of the complexity in the worst case, helping to quantify performance as the input size becomes arbitrarily large. You can care about the time and the space the algorithm takes.
 
 *e.g.* Find the number 7 in a list
-- **Worst case scenario**: number 7 is the last element of the list
-- **Time complexity**: linear, with respected to the number of elements and size of list
+- __Worst case scenario__: number 7 is the last element of the list
+- __Time complexity__: linear, with respected to the number of elements and size of list
 
 ### Possible Complexities
 <small>`n` – the size of the input ; Complexities ordered in from the smallest to largest</small>
@@ -103,19 +103,19 @@ Sorting using mergesort – **O(nlog(n))**\
 Interating over all the cells in a matrix of size n by m – **O(nm)**
 
 ## Different Asymptotic Notations
-**Big-Ω** → describes the growth rate in the best scenario.\
-**Big-ϴ** → refers to the tight bound - runtime is bound to be the given complexity and there are no upper or lower bounds.
+__Big-Ω__ → describes the growth rate in the best scenario.\
+__Big-ϴ__ → refers to the tight bound - runtime is bound to be the given complexity and there are no upper or lower bounds.
 
 # Structures
 ## Static and Dynamic Arrays
-**Static Array** → fixed length container containing n elements indexable from the range [0, n1]. They are continuous chunks of memory. Some uses are:
+__Static Array__ → fixed length container containing n elements indexable from the range [0, n1]. They are continuous chunks of memory. Some uses are:
 - temporarily storing objects;
 - used by IO routines as buffers;
 - lookup tables;
 - return multiple values from a function;
 - in dynamic programming, to cache answers to subproblems.
 
-**Dynamic Array** → can grow and shrink in size. Can be implemented with static arrays.
+__Dynamic Array__ → can grow and shrink in size. Can be implemented with static arrays.
 
 ### Implementation of Dynamic Array
 1. Static array with an initial capacity.

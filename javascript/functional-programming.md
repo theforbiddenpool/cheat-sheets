@@ -1,3 +1,4 @@
+# Keywords
 __Callbacks__ → functions that are passed into another function to decide the invocation of that function.\
 *e.g.* filter function, the callback tells JavaScript the criteria for how to filter an array
 

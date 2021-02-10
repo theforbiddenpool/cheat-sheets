@@ -181,8 +181,108 @@ categoryDropdown.subscribe(priceDropdown)
 ```
 The `update` observer method is the implementation of what we want to do when, in this case, the category changes.
 
+# Publish-Subscribe Architecture
+__Publish-Subscribe Architecture__ → messaging pattern. Helps to create an abstraction so different system components can communicate without knowing anything about each other's identity. This creates space, time and synchronization decoupling. The three main components in PSA are:
+- __Publishers__ → the sender of messages. They do not specify directly to whom the message is to be sent.
+- __Event bus / Message broker__ → acts as an intermediary that collects all the messages from publishers and forward them to subscribers based on their interest.
+- __Subscribers__ → the ones which the messages are directed to.
+
+## Types of Subscription Model
+### Topic-based
+- Events are classified in topics (subjects).
+- Subscribers receive events related to a particular keyword.
+- Messages are grouped based on the topic.
+
+### Content-based
+- Events are classified according to the properties of the notifications.
+- Subscribers announce their interest by describing to a property of an event (e.g. specify filter, constraints).
+- No concept of grouping messages based on topic (no keywords).
+
+### Type-based
+It's a subset of the content-based model.
+- Events are classified based on the type of objects, thus being able encapsulate attributes and methods.
+- Subscribers express interest on an event type by supplying a filter expression that evaluates the attributes during runtime.
+- Messages are grouped based on the type of topic/object (same kind of event).
+
+## Observer vs PSA
+In the Observer pattern, the observers are aware of the observable. But, in a PSA pattern, publishers and subscribers don't need to know each other - they communicate with the help of a third component. In Publish/Subscriber pattern, components are loosely coupled.
+
+Additonally, the Observer is mostly implemented in a synchronous way, *e.g.* the Subject calls the appropriate method of all its observers when some event occurs. Whereas, the Publisher/Subscriber pattern is usually implemented in an asynchronous away, using a message queue.
+
+## PSA implementation using JavaScript
+A very basic approach on this architecture is to define a function that does something (e.g. update our UI) and then pass it to another portion of the code, where it will be called.
+
+```javascript
+let changeListener = null;
+
+export function subscribe(callbackFunction) {
+  changeListener = callbackFunction;
+}
+
+export function addPlace(latLng) {
+  ... // asynchronous code
+  if(changeListener) { changeListener(); }
+}
+
+... // sidebar.js
+import { getPlaces, subscribe } from './dataservice.js';
+
+function renderCities() {
+  ...
+}
+
+renderCities();
+subscribe(renderCities);
+```
+
+While sidebar.js is being loaded, it registers `renderCities` function inside the `dataService`. Then `dataService` invokes this function when it needs to. Where the publisher is the service method and the subscriber of the event is the sidebar component.
+
+We can turn `changeListeners` into an array so multiple components can subscribe to it.
+```javascript
+let changeListeners = [];
+
+export function subscribe(callbackFunction) {
+  changeListeners.push(callbackFunction);
+}
+```
+With this, we should write a function that will invoke all the listeners for us.
+```javascript
+function publish() {
+  changeListeners.forEach(changeListener => changeListener())
+}
+
+export function addPlace(latLng) {
+  ... // asynchroonous code
+  publish();
+}
+```
+
+We can also use subscribers as a method of transporting data. On the publisher, we pass the data to the subscriber function via parameter.
+```javascript
+function publish(data)
+  changeListeners.forEach(changeListener => changeListener(data))
+}
+
+export function addPlace(latLng) {
+  ... // asynchronous code
+  publish(myPlaces);
+}
+
+... // sidebar.js
+function renderCities(placesArray) {
+ ...
+}
+```
+
+### PSA in Javascript
+This architecture is pretty much used everywhere. `element.addEventListener` is the same mechanism: you subscribe your function to a particular event, which is being called when some action is published by an element.
+
+Modern libraries and frameworks also use this architecture: Angular with RxJS, React with state and props management, Redux, etc.
+
 # Sources
 [JavaScript Design Patterns: The Sigleton – sitepoint](https://www.sitepoint.com/javascript-design-patterns-singleton/)\
 [Dependency Injection in JavaScript 101 – dev.to](https://dev.to/azure/dependency-injection-in-javascript-101-2b1e)\
 [The Decorator Pattern – O'Reilly](https://www.oreilly.com/library/view/learning-javascript-design/9781449334840/ch09s14.html)\
 [4 Design Patterns You Should Know for Web Development – FreeCodeCamp](https://www.freecodecamp.org/news/4-design-patterns-to-use-in-web-development/)
+[Why every beginner front-end developer should know publish-subscribe pattern? - ITNext](https://itnext.io/why-every-beginner-front-end-developer-should-know-publish-subscribe-pattern-72a12cd68d44)\
+[Observer vs Pub-Sub pattern – Hackernoon](https://hackernoon.com/observer-vs-pub-sub-pattern-50d3b27f838c)

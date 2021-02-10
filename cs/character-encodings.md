@@ -21,8 +21,8 @@ __Font__ → collection of definitions of the shapes used to display characters,
 Once your browser or app has worked out what characters it's dealing with, it will then look in the font for glyphs it can use to display or print those characters.  If the font doesn't have a glyph for a particular character, some browsers or software applications will look for the missing glyphs in other fonts on your system. Otherwise we will typically see a square box, question mark or some other character instead.
 
 ## Declaring and Applying an Encoding
-We need to label and save our data in the encoding of our choosing. <mark>Typically it should be UTF-8</mark>, unless there is a very special reason not to.
-We also need to ensure the server delivers content with the correct character encoding declarations, since <mark>server settings can override in-document declarations</mark>. The character encoding of the document being sent by the server via HTTP is declared on a HTTP header.
+We need to label and save our data in the encoding of our choosing. **Typically it should be UTF-8**, unless there is a very special reason not to.
+We also need to ensure the server delivers content with the correct character encoding declarations, since **server settings can override in-document declarations**. The character encoding of the document being sent by the server via HTTP is declared on a HTTP header.
 ```
 Content-Type: text/html; charset=UTF-8
 ```
@@ -39,7 +39,7 @@ _In-document declaration of encoding in CSS:_
 In CSS, you only need to declare the encoding if your style sheet contains non-ASCII characters and, for some reason, you can't rely on the HTML and style sheet files' encoding to be the same.
 
 ## Unicode
-Standard that defines in one place all the characters needed for writing the majority of living languages in use on computers. <mark>It aims to be a superset of all other character sets that have been encoded.</mark> It is now fundamental to the Web's and operating systems' architecture, and is supported by all major web browsers and applications.
+Standard that defines in one place all the characters needed for writing the majority of living languages in use on computers. **It aims to be a superset of all other character sets that have been encoded.** It is now fundamental to the Web's and operating systems' architecture, and is supported by all major web browsers and applications.
 Unicode is divided in planes:
 - __Basic Multilingual Plane (BMP)__ → the first 65,536 code point positions in Unicode's character set. Includes most of the more commonly used characters.
 - __Supplementary Characters__ → contains all the other characters in an additional million code point positions. Some of its planes are *Supplementary Multilingual Plane (SMP)*, *Supplementary Ideographic Plane (SIP)*, and *Supplementary Special Use Plane*.
@@ -55,11 +55,11 @@ Although the code point for a certain letter in the Unicode coded character set 
 ## Characters & Clusters
 The term character is often used to mean different things in different contexts: it can variously refer to the visual, logical, or byte-level representation of a given piece of text. When talking about algorithms, protocols, or document formats, the recommendation is to use it as a synonym for code point.
 
-However, in certain complex scripts, <mark>
+However, in certain complex scripts, **
   what a user perceives as a smallest component of their alphabet
-</mark> (a user-perceived character) <mark>
+** (a user-perceived character) **
   may actually be a sequence of code points
-</mark>.
+**.
 
 ![user-perceived character vs. possible decomposition](../_assets/cs_characterencodings-2.png)
 

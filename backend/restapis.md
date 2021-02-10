@@ -81,7 +81,7 @@ Some best practices to secure a REST API are:
 - Input parameter validation.
 
 # Keywords
-__Aplication state__ → server-side data which the servers store to identify incoming client requests, their previous interaction details, and current context information. **REST statelessness means being free on application state.**
+__Application state__ → server-side data which the servers store to identify incoming client requests, their previous interaction details, and current context information. **REST statelessness means being free on application state.**
 
 __Resource state__ → the current sate of a resource on a server at any point of time. Is what we get as a response from the server. We can refer to it as resource representation.
 
