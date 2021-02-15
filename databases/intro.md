@@ -1,4 +1,30 @@
-# SQL vs NoSQL
+__Database__ → collection of data. It allows us to organize data, *e.g.* numbers, dates, in a way that's useful for us.
+
+__Database Management System (DBMS)__ → collection of programs which allows us to access databases and work with data, and add control access to users. There are two types of DBMS: **relational databases** and .
+
+## Relational Databases
+They consist of two or more tables, with columns and rows. The relation between tables and fields is called **schema**. Each schema must be clearly defined before any information can be added.
+
+We can connect the information, by connecting different pieces of the table. This is done by using **foreign keys**.
+
+__Primary key__ → the field that uniquely identifies each row in a tabje.
+
+Some examples are PostgresSQL, Oracle, Mysql. They all follow a similar format.
+
+All relational databases use **SQL** to communicate with the backend server.
+
+## Non Relational Database (NoSQL)
+They allow us to build an application without having to define the schema first. Some examples are MongoDB, Redis, CouchDB. They all have different ways of storing information, offering a greater flexibility.
+
+Instead of using SQL, each one has its own query language.
+
+NoSQL databases can be classified as four different types:
+- __Key-Value__ → similar to how we handle objects in JavaScript, *e.g.* Redis.
+- __Document__ → stores information as documents - each (for example) user has its own document, *e.g.* MongoDB, CouchDB.
+- __Wide Column__ → *e.g.* Cassandra
+- __Graph__ → *e.g.* Neo4j
+
+## SQL vs NoSQL
 SQL | NoSQL
 --- | ---
 Data uses Schemas | Schema-less
@@ -17,13 +43,12 @@ Limitations for lots of (thousands) read & write queries per second | Great perf
 - data with no relations.
 - a lot of reads, and/or simple writes.
 
-## Horizontal vs. Vertical Scaling
+### Horizontal vs. Vertical Scaling
 __Horizontal Scaling__ → if we want more performance, we can just add another server to the cluster. We can essentially scale infinitely.
 
 __Vertical Scaling__ → if we need to improve performance, the only way is by adding more power to the server, *e.g.* more RAM, or better CPU.
 
 MongoDB can scale both horizontally and vertically, whilst RDMSQL are limited to partitions for horizontal scaling, which aren't very good, and vertical scaling.
-
 
 # Normalized vs Denormalized Databases
 There are two main design patterns we can use when designing a database:
@@ -70,4 +95,5 @@ __Record / Row__ → an individual entry in the table.
 # Sources
 [What is SQL? What is a Database? Relational Database Management Systems (RDBMS) Explained in Plain English. – FreeCodeCamp](https://www.freecodecamp.org/news/sql-and-databases-explained-in-plain-english/)\
 [What does ACID mean in Database Systems? – Database.Guide](https://database.guide/what-is-acid-in-databases/)\
-[SQL vs NoSQL or MySQL vs MongoDB – Youtube](https://www.youtube.com/watch?v=ZS_kXvOeQ5Y)
+[SQL vs NoSQL or MySQL vs MongoDB – Youtube](https://www.youtube.com/watch?v=ZS_kXvOeQ5Y)\
+[The Complete Junior to Senior Web Developer Roadmap (2020)](https://www.udemy.com/course/the-complete-junior-to-senior-web-developer-roadmap/), by Andrei Neagoie
