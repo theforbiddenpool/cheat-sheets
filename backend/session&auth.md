@@ -1,5 +1,8 @@
+# Types of Authentication
 ## Session Based Authentication
 The user is assigned some unique identifier. The server keeps track of the logged in users in memory or in storage, *e.g.* redis, memory database, filesystem. The client sends the session id in all the requests and the server uses it to identify the user. It's a **stateful authentication methodology.**
+
+It's possible to set a TTL, where the user is logged out after a while.
 
 ## Token Based Authentication
 A token is sent from client to server in each request. It is a **stateless authentication methodology**.
@@ -65,6 +68,41 @@ There are two main ways of initiating the authentication flow.
 [![identity provider initiated flow diagram](../_assets/bce_sa_saml-idp.png)](https://roadmap.sh/guides/sso "Roadmap.sh SSO Guide")
 - __Service Provider Initiated Flow__ → client requests the service provider to start the authentication flow. The first request is sent to the SP, which directs the user to IDP for authentication.
 
+# Implementation
+## JWT tokens
+__Access Token__ → contains the credentials for a login session, and identifies the user. They should last a short amount of time, so if an attacker gains access to it, it only has a short amount of time to do anything.
+
+__Refresh Token__ → usedto obtain a new **access tokens** when it becomes invalid or expires. It should be set as `HttpOnly`, and it's best to use some kind of database to save it, *e.g.* Redis. That way, we can easily revoke the user if they want to logged out, or if the account gets compromised.
+
+The amount of time for which each token is valid for depends on us. **Refresh tokens** should last long enough so we are not constantly asking the user to log back in, *e.g.* 1 year. **Access tokens** should be valid for a short amount of time for security reasons, but long enough that the server isn't generating one every few seconds, *e.g.* 2 mins.
+
+In an Express app, the way we protect a route is by adding a middleware that verifies if the user has the permission to access a certain endpoint.
+1. The server checks if cookies or the Authorization header. If they don't contain the tokens, return a *401 Unauthorized*.
+2. Check if the **Access Token** is still valid. If it isn't, check the **Refresh Token**. Otherwise, grant access to the user.
+3. If the Refresh Token is still valid, generate a new Access Token. Delete the old one, and set the new one. Then, grant access to the user.
+4. If the Refresh Token is no longer valid, the user will have to login again.
+
+It's best practice to also set a */refresh-token* route, so the frontend can request a new token if the Access Token is no longer valid.
+
+### `jsonwebtoken` npm package
+```
+$ npm i jsonwebtoken
+```
+
+#### Signing a token
+```javascript
+const jwt = require('jsonwebtoken')
+const token = jwt.sign({ username: 'bar' }, secret, { expiredIn: '2 days' })
+```
+
+#### Verify a token
+```javascript
+const decoded = jwt.verify(token, secret)
+```
+
+### Cookies access with CORS
+When we want to make a request to another domain, we need to use CORS. To set a request as CORS, on the `fetch` request we need add `mode: 'cors'`, and `credentials: 'include'`. This will give access to the user's cookies.
+
 # Keywords
 __Stateful Authentication Methodology__ → authentication session can be revoked.
 
@@ -78,6 +116,5 @@ __Authorization server__ → server that handles the authorization and authoriza
 
 __Resource server__ → server that exposes protected resources.
 
-
 # Sources
-[roadmap.sh Guides](https://twitter.com/kamranahmedse/)
+[roadmap.sh Guides](https://twitter.com/kamranahmedse/)\

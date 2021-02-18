@@ -62,5 +62,19 @@ ZRANK secondset "Wizards"
 
 For more commands we can check their [documentation](https://redis.io/commands).
 
+## npm package
+```
+$ npm i redis
+```
+
+We'll need to create a `client`, with which we're gonna execute the Redis commands. The function names are equal to the commands names.
+```javascript
+const redis = require('redis')
+const client = redis.createClient({ host: process.env.REDIS_URI })
+
+client.set('key', 'value', redis.print)
+client.get('key', redis.print)
+```
+
 # Sources
 [The Complete Junior to Senior Web Developer Roadmap (2020)](https://www.udemy.com/course/the-complete-junior-to-senior-web-developer-roadmap/), by Andrei Neagoie
