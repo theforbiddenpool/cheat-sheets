@@ -77,7 +77,7 @@
 
 ## Testing
 - [Introduction](./testing/intro.md)
-- [CHai](./testing/chai.md)
+- [Chai](./testing/chai.md)
 - [Jest](./testing/jest.md)
 - [React](./testing/react.md)
 
